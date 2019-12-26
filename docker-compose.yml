@@ -1,0 +1,37 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:latest
+    network_mode: bridge
+    container_name: postgres
+    volumes:
+    - postgres-data:/var/lib/postgresql/data
+    expose:
+      - 5432
+    ports:
+      - 5432
+    environment:
+      - POSTGRES_PASSWORD=barlova
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=pfdb
+    restart: unless-stopped
+  # APP*****************************************
+  portfolio:
+    image: portfolio-backend-springboot:latest
+    network_mode: bridge
+    container_name: portfolio-backend-spring
+    expose:
+      - 9000
+    ports:
+      - 9000
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    links:
+      - postgres
+  web:
+    build: .
+    ports:
+      - 9000:9000
+volumes:
+  postgres-data:

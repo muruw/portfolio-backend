@@ -1,6 +1,6 @@
 app:
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5432/pfdb
+    jdbc-url: jdbc:postgresql://postgres:5432/pfdb
     username: postgres
     password: barlova
     pool-size: 30
